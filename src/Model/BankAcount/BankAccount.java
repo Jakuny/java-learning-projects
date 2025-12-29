@@ -10,10 +10,13 @@ public class BankAccount {
     private String accountHolderName;
     private double balance;
     private Logger logger;
+    private final long accountId;
+    private static long nextAccountId = 1;
 
     public BankAccount(String name, Logger logger){
         this.accountHolderName = name;
         this.logger = logger;
+        this.accountId = nextAccountId++;
         loadFromFile();
     }
 
@@ -61,7 +64,11 @@ public class BankAccount {
         }
     }
 
+    public long getAccountId() {
+        return accountId;
+    }
+
     public void printBalance() {
-        logger.log("Ваш баланс: " + balance + "₽");
+        logger.log("Счет №" + getAccountId() +", Владелец: "+ this.accountHolderName + ", Баланс: " + this.balance + "₽");
     }
 }
